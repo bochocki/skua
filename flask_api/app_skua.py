@@ -11,7 +11,7 @@ import re
 #from tensorflow.python import keras
 from textblob import TextBlob
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
 # color management
 colors = cl.scales['11']['div']['RdBu'][::-1]
@@ -87,7 +87,7 @@ def sentiment_estimator(tweet):
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Skua 0.1"
+   return "Hello, World!"
 
 from flask import request
 
