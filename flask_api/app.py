@@ -93,11 +93,15 @@ from flask import request
 def predict_abuse():
 
     tweet = preprocess(request.args.get('tweet'))
+
+    print(tweet)
+
+
     elem  = request.args.get('element')
 
     # classifiers
     ft_score, ft_label = fasttext_estimator(ft_model, tweet)
-    ks_score, ks_label = keras_estimator(ks_tokenizer, ks_classes, tweet)
+    ks_score, ks_label = fasttext_estimator(ft_model, tweet)#keras_estimator(ks_tokenizer, ks_classes, tweet)
     s_score = sentiment_estimator(tweet)
 
     ens_score = np.mean([ft_score, ks_score, s_score])
