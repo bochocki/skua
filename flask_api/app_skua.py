@@ -18,7 +18,7 @@ colors = cl.scales['11']['div']['RdBu'][::-1]
 
 # LOAD MODELS
 # fasttext
-ft_model = ft.load_model('model.bin')
+ft_model = ft.load_model('./flask_api/model.bin')
 
 # keras
 '''
