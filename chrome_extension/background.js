@@ -27,7 +27,7 @@ function mutationHandler (mutationRecords) {
 
 		var clean_text = removeBrackets(matches[i].innerHTML);
 
-		$.get("https://127.0.0.1:5000/CleverBird", { tweet: clean_text, element: i })
+		$.get("https://skua.online/CleverBird", { tweet: clean_text, element: i })
 		    .done(function( data ) {
 			$(matches[data.element]).parent().parent().parent().css('background', data.score);
 		    }, "json");
