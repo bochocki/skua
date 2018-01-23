@@ -1,4 +1,4 @@
-from flaskexample import app
+from flask_api import app
 
 @app.route('/')
 @app.route('/index')
