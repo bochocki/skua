@@ -85,6 +85,7 @@ def sentiment_estimator(tweet):
     return (-TextBlob(tweet).sentiment.polarity + 1) / 2
 
 @app.route('/')
+@app.route('/index')
 def index():
     return "Skua 0.1"
 
