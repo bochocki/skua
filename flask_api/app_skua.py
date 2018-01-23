@@ -87,7 +87,7 @@ def sentiment_estimator(tweet):
 @app.route('/')
 @app.route('/index')
 def index():
-   return "Hello, World!"
+   return "Skua v0.0.1"
 
 from flask import request
 
