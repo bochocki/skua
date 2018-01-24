@@ -12,7 +12,7 @@ import re
 from textblob import TextBlob
 
 #app = Flask(__name__)
-
+'''
 # color management
 colors = cl.scales['11']['div']['RdBu'][::-1]
 
@@ -21,12 +21,12 @@ colors = cl.scales['11']['div']['RdBu'][::-1]
 ft_model = ft.load_model('./flask_api/model.bin')
 
 # keras
-'''
+
 ks_tokenizer = pickle.load( open( "keras_tokenizer.p", "rb" ) )
 ks_classes = pickle.load( open( "keras_classes.p", "rb"))
 ks_model = keras.models.load_model("keras_model.ks", custom_objects=None, compile=True)
 ks_model.predict(np.array(ks_tokenizer.texts_to_matrix(['hack'])))
-'''
+
 def preprocess(tweet):
     # define some useful regex
     mention_regex = r'@[\w\-]+'
@@ -83,7 +83,7 @@ def keras_estimator(tokenizer, classes, tweet):
 
 def sentiment_estimator(tweet):
     return (-TextBlob(tweet).sentiment.polarity + 1) / 2
-
+'''
 @app.route('/')
 @app.route('/index')
 def index():
@@ -96,15 +96,9 @@ def predict_abuse():
 
     elem  = request.args.get('element')
     tweet = request.args.get('tweet')
-    print(tweet)
 
-    tweet = preprocess(request.args.get('tweet'))
-
-    print(tweet)
-
-
-    elem  = request.args.get('element')
-
+    #tweet = preprocess(request.args.get('tweet'))
+    '''
     # classifiers
     ft_score, ft_label = fasttext_estimator(ft_model, tweet)
     ks_score, ks_label = fasttext_estimator(ft_model, tweet)#keras_estimator(ks_tokenizer, ks_classes, tweet)
@@ -119,7 +113,9 @@ def predict_abuse():
     print('[tweet]      {0}'.format(tweet))
 
     return jsonify({'score': colors[int(ens_score * 10)], 'tweet': tweet, 'label': ft_label, 'element': elem})
-'''
+    '''
+    return jsonify({'score': 'red', 'tweet': tweet, 'label': 'test', 'element': elem})
+
 if __name__ == '__main__':
     app.run(debug=True, ssl_context=('cert.pem', 'key.pem'))
 '''
