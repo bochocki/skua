@@ -5,33 +5,31 @@ var obsConfig           = { childList: true, characterData: true, attributes: tr
 
 //--- Add a target node to the observer. Can only add one node at a time.
 targetNodes.each ( function () {
-    myObserver.observe (this, obsConfig);
-} );
+  myObserver.observe (this, obsConfig);
+});
 
 function removeBrackets(input) {
-    return input
-        .replace(/<.*?>/g, "");
+  return input
+    .replace(/<.*?>/g, "");
 }
 
 function mutationHandler (mutationRecords) {
 
-    mutationRecords.forEach ( function (mutation) {
+  mutationRecords.forEach ( function (mutation) {
+    var matches = document.getElementsByClassName("tweet-text");
+      for(var i=0; i <matches.length; i++)
+      {
+	      if (matches[i].classList.contains("clever-tweet")) {
 
-	var matches = document.getElementsByClassName("tweet-text");
-        for(var i=0; i <matches.length; i++)
-        {
-	    if (matches[i].classList.contains("clever-tweet")) {
+        } else {
+          matches[i].className += " clever-tweet";
+          var clean_text = removeBrackets(matches[i].innerHTML);
 
-	    } else {
-		matches[i].className += " clever-tweet";
-
-		var clean_text = removeBrackets(matches[i].innerHTML);
-
-		$.get("https://skua.online/CleverBird", { tweet: clean_text, element: i })
-		    .done(function( data ) {
-			$(matches[data.element]).parent().parent().parent().css('background', data.score);
-		    }, "json");
-	    }
-        }
-    } );
+		      $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
+		        .done(function( data ) {
+			        $(matches[data.element]).parent().parent().parent().css('background', data.score);
+		        }, "json");
+	      }
+      }
+  });
 }
