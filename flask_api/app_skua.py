@@ -3,6 +3,7 @@ import colorlover as cl
 from flask import Flask, jsonify
 from flask import abort
 from flask import make_response
+from flask import request
 from flask_api import app
 import fasttext as ft
 import numpy as np
@@ -12,7 +13,7 @@ import re
 from textblob import TextBlob
 
 #app = Flask(__name__)
-'''
+
 # color management
 colors = cl.scales['11']['div']['RdBu'][::-1]
 
@@ -21,12 +22,12 @@ colors = cl.scales['11']['div']['RdBu'][::-1]
 ft_model = ft.load_model('./flask_api/model.bin')
 
 # keras
-
+'''
 ks_tokenizer = pickle.load( open( "keras_tokenizer.p", "rb" ) )
 ks_classes = pickle.load( open( "keras_classes.p", "rb"))
 ks_model = keras.models.load_model("keras_model.ks", custom_objects=None, compile=True)
 ks_model.predict(np.array(ks_tokenizer.texts_to_matrix(['hack'])))
-
+'''
 def preprocess(tweet):
     # define some useful regex
     mention_regex = r'@[\w\-]+'
@@ -83,25 +84,16 @@ def keras_estimator(tokenizer, classes, tweet):
 
 def sentiment_estimator(tweet):
     return (-TextBlob(tweet).sentiment.polarity + 1) / 2
-'''
+
+
 @app.route('/')
 @app.route('/index')
 def index():
    return "TESTING"
 
 
-@app.route('/tweet_score')
-def tweet_score():
-   return "hello world"
-
-
-'''
-from flask import request
-
 @app.route('/CleverBird', methods=['GET'])
 def predict_abuse():
-    return "Hello World!"
-
 
     elem  = request.args.get('element')
     tweet = request.args.get('tweet')
@@ -124,4 +116,3 @@ def predict_abuse():
     return jsonify({'score': colors[int(ens_score * 10)], 'tweet': tweet, 'label': ft_label, 'element': elem})
 
     return jsonify({'score': 'red', 'tweet': tweet, 'label': 'test', 'element': elem})
-    '''
