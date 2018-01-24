@@ -89,13 +89,14 @@ def sentiment_estimator(tweet):
 def index():
    return "Skua v0.0.1"
 
+'''
 from flask import request
 
 @app.route('/CleverBird', methods=['GET'])
 def predict_abuse():
     return "Hello World!"
 
-    '''
+
     elem  = request.args.get('element')
     tweet = request.args.get('tweet')
 
