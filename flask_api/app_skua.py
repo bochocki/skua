@@ -89,8 +89,9 @@ def sentiment_estimator(tweet):
 def index():
    return "Skua v0.0.1"
 
-@app.route('/CleverBird')
-def clever_bird():
+
+@app.route('/tweet_score')
+def tweet_score():
    return "hello world"
 '''
 from flask import request
