@@ -87,7 +87,7 @@ def sentiment_estimator(tweet):
 @app.route('/')
 @app.route('/index')
 def index():
-   return "Skua v0.0.1"
+   return "TESTING"
 
 
 @app.route('/tweet_score')
