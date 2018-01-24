@@ -93,12 +93,14 @@ from flask import request
 
 @app.route('/CleverBird', methods=['GET'])
 def predict_abuse():
+    return "Hello World!"
 
+    '''
     elem  = request.args.get('element')
     tweet = request.args.get('tweet')
 
     #tweet = preprocess(request.args.get('tweet'))
-    '''
+
     # classifiers
     ft_score, ft_label = fasttext_estimator(ft_model, tweet)
     ks_score, ks_label = fasttext_estimator(ft_model, tweet)#keras_estimator(ks_tokenizer, ks_classes, tweet)
@@ -113,9 +115,6 @@ def predict_abuse():
     print('[tweet]      {0}'.format(tweet))
 
     return jsonify({'score': colors[int(ens_score * 10)], 'tweet': tweet, 'label': ft_label, 'element': elem})
-    '''
+
     return jsonify({'score': 'red', 'tweet': tweet, 'label': 'test', 'element': elem})
-'''
-if __name__ == '__main__':
-    app.run(debug=True, ssl_context=('cert.pem', 'key.pem'))
-'''
+    '''
