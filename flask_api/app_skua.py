@@ -118,8 +118,7 @@ def predict_abuse():
     print('[TextBlob]   score: {0}'.format(s_score))
     print('[tweet]      {0}'.format(tweet))
 
-    #return jsonify({'score': colors[int(ens_score * 10)], 'tweet': tweet, 'label': ft_label, 'element': elem})
-    return jsonify({'score': colors[5], 'tweet': tweet, 'label': 'test', 'element': elem})
+    return jsonify({'score': colors[int(ens_score * 10)], 'tweet': tweet, 'label': ft_label, 'element': elem})
 '''
 if __name__ == '__main__':
     app.run(debug=True, ssl_context=('cert.pem', 'key.pem'))
