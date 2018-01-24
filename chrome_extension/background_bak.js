@@ -8,13 +8,11 @@ targetNodes.each ( function () {
   myObserver.observe (this, obsConfig);
 });
 
-// remove text in brackets
 function removeBrackets(input) {
   return input
     .replace(/<.*?>/g, "");
 }
 
-// update CSS when
 function mutationHandler (mutationRecords) {
 
   mutationRecords.forEach ( function (mutation) {
@@ -31,11 +29,9 @@ function mutationHandler (mutationRecords) {
 		      $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
 		        .done(function( data ) {
 			        //$(matches[data.element]).parent().parent().parent().css('background', data.score);
-              $(matches[i]).parent().parent().parent().css('background', 'red');
+              $(matches[data.element]).parent().parent().parent().css('background', 'red');
 		        }, "json");
 	      }
       }
-
-      // send GET request to skua
   });
 }
