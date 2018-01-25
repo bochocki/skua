@@ -97,7 +97,7 @@ def predict_abuse():
     elem  = request.args.get('element')
     tweet = request.args.get('tweet')
 
-    #tweet = preprocess(request.args.get('tweet'))
+    tweet = preprocess(request.args.get('tweet'))
 
     # classifiers
     ft_score, ft_label = fasttext_estimator(ft_model, tweet)
