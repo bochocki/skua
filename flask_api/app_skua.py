@@ -9,7 +9,7 @@ import fasttext as ft
 import numpy as np
 import pickle
 import re
-#from tensorflow.python import keras
+from tensorflow.python import keras
 from textblob import TextBlob
 
 #app = Flask(__name__)
