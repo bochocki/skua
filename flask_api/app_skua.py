@@ -22,12 +22,11 @@ colors = cl.scales['11']['div']['RdBu'][::-1]
 ft_model = ft.load_model('./flask_api/model.bin')
 
 # keras
-'''
-ks_tokenizer = pickle.load( open( "keras_tokenizer.p", "rb" ) )
-ks_classes = pickle.load( open( "keras_classes.p", "rb"))
-ks_model = keras.models.load_model("keras_model.ks", custom_objects=None, compile=True)
+ks_tokenizer = pickle.load( open( "./flask_api/keras_tokenizer.p", "rb" ) )
+ks_classes = pickle.load( open( "./flask_api/keras_classes.p", "rb"))
+ks_model = keras.models.load_model("./flask_api/keras_model.ks", custom_objects=None, compile=True)
 ks_model.predict(np.array(ks_tokenizer.texts_to_matrix(['hack'])))
-'''
+
 def preprocess(tweet):
     # define some useful regex
     mention_regex = r'@[\w\-]+'
