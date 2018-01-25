@@ -1,12 +1,4 @@
-var targetNodes         = $(".stream-items");
-var MutationObserver    = window.MutationObserver || window.WebKitMutationObserver;
-var myObserver          = new MutationObserver (mutationHandler);
-var obsConfig           = { childList: true, characterData: true, attributes: true, subtree: true };
-
-//--- Add a target node to the observer. Can only add one node at a time.
-targetNodes.each ( function () {
-  myObserver.observe (this, obsConfig);
-});
+var myVar = setInterval(skua_filter, 1000);
 
 // remove text in brackets
 function removeBrackets(input) {
@@ -14,28 +6,28 @@ function removeBrackets(input) {
     .replace(/<.*?>/g, "");
 }
 
-// update CSS when
-function mutationHandler (mutationRecords) {
+function skua_filter() {
+  var tweets = document.getElementsByClassName("tweet-text");
+  var skua_tweets = document.getElementsByClassName("skua-tweet");
 
-  mutationRecords.forEach ( function (mutation) {
-    var matches = document.getElementsByClassName("tweet-text");
-      console.log('reloaded');
-      for(var i=0; i <matches.length; i++)
-      {
-	      if (matches[i].classList.contains("clever-tweet")) {
+  if (tweets.length != skua_tweets.length)
+  {
+    console.log("running skua")
+    for(var i=0; i <tweets.length; i++)
+    {
 
-        } else {
-          matches[i].className += " clever-tweet";
-          var clean_text = removeBrackets(matches[i].innerHTML);
+    if (tweets[i].classList.contains("skua-tweet")) {
 
-		      $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
-		        .done(function( data ) {
-			        //$(matches[data.element]).parent().parent().parent().css('background', data.score);
-              $(matches[i]).parent().parent().parent().css('background', 'red');
-		        }, "json");
-	      }
+    } else {
+      tweets[i].className += " skua-tweet";
+      var clean_text = removeBrackets(tweets[i].innerHTML);
+
+      $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
+        .done(function( data ) {
+          //$(matches[data.element]).parent().parent().parent().css('background', data.score);
+          $(tweets[data.element]).parents('.tweet').css('background', data.score);
+        }, "json");
       }
-
-      // send GET request to skua
-  });
+    }
+  }
 }
