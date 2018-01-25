@@ -13,9 +13,9 @@ from tensorflow.python import keras
 from textblob import TextBlob
 
 # color management
-colors = cl.scales['9']['seq']['Reds']
-colors = cl.interp( colors, 16 )[1:11]
-colors.append('rgb(255, 255, 255)')
+reds = cl.scales['5']['seq']['Reds']
+whites = ['rgb(255, 255, 255)'] * 6
+colors = whites + reds
 
 # LOAD MODELS
 # fasttext
