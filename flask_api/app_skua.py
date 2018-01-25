@@ -12,10 +12,8 @@ import re
 from tensorflow.python import keras
 from textblob import TextBlob
 
-#app = Flask(__name__)
-
 # color management
-colors = cl.scales['11']['div']['RdBu'][::-1]
+colors = cl.scales['11']['seq']['Reds'][::-1]
 
 # LOAD MODELS
 # fasttext
