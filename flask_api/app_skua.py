@@ -32,6 +32,8 @@ def preprocess(tweet):
     mention_regex = r'@[\w\-]+'
     url_regex = (r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|'
                 '[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+    url_regex = (r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|'
+                '[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
     # remove unnecessary symbols
     tweet = re.sub(r'\n', ' ', tweet)  # newlines
@@ -112,6 +114,4 @@ def predict_abuse():
     print('[TextBlob]   score: {0}'.format(s_score))
     print('[tweet]      {0}'.format(tweet))
 
-    return jsonify({'score': colors[int(ens_score * 10)], 'tweet': tweet, 'label': ft_label, 'element': elem})
-
-    return jsonify({'score': 'red', 'tweet': tweet, 'label': 'test', 'element': elem})
+    return jsonify({'score': int(ens_score * 100), 'color': colors[int(ens_score * 10)], 'tweet': tweet, element': elem})
