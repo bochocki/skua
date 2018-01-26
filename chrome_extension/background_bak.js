@@ -1,37 +1,49 @@
-var targetNodes         = $(".stream-items");
-var MutationObserver    = window.MutationObserver || window.WebKitMutationObserver;
-var myObserver          = new MutationObserver (mutationHandler);
-var obsConfig           = { childList: true, characterData: true, attributes: true, subtree: true };
+var myVar = setInterval(skua_filter, 1000);
 
-//--- Add a target node to the observer. Can only add one node at a time.
-targetNodes.each ( function () {
-  myObserver.observe (this, obsConfig);
-});
 
+var storage = chrome.storage.local;
+
+// remove text in brackets
 function removeBrackets(input) {
   return input
     .replace(/<.*?>/g, "");
 }
 
-function mutationHandler (mutationRecords) {
+function skua_filter() {
+  var tweets = document.getElementsByClassName("tweet-text");
+  var skua_tweets = document.getElementsByClassName("skua-tweet");
 
-  mutationRecords.forEach ( function (mutation) {
-    var matches = document.getElementsByClassName("tweet-text");
-      console.log('reloaded');
-      for(var i=0; i <matches.length; i++)
-      {
-	      if (matches[i].classList.contains("clever-tweet")) {
+  if (tweets.length != skua_tweets.length)
+  {
+    console.log("running skua")
+    for(var i=0; i <tweets.length; i++)
+    {
 
-        } else {
-          matches[i].className += " clever-tweet";
-          var clean_text = removeBrackets(matches[i].innerHTML);
+    if (tweets[i].classList.contains("skua-tweet"))
+    {
 
-		      $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
-		        .done(function( data ) {
-			        //$(matches[data.element]).parent().parent().parent().css('background', data.score);
-              $(matches[data.element]).parent().parent().parent().css('background', 'red');
-		        }, "json");
-	      }
+    } else {
+      tweets[i].className += " skua-tweet";
+      tweets[i]['skuaScore'] = 0;
+      var clean_text = removeBrackets(tweets[i].innerHTML);
+
+      $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
+        .done(function( data ) {
+          $(tweets[data.element]).parents('.tweet').css('background', data.color);
+          tweets[data.element]['skuaScore'] = data.score;
+        }, "json");
       }
-  });
+
+      storage.get('aValue', function(items, tweets, i) {
+          console.log(tweets[i].innerHTML);
+
+          /*if (tweets[i]['skuaScore'] > items.aValue) {
+            console.log("block");
+          } else {
+            console.log('pass');
+          }*/
+        });
+
+    }
+  }
 }

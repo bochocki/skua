@@ -17,6 +17,7 @@
     "matches": [ "http://twitter.com/*", "https://twitter.com/*"]
   }],
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ]
 }
