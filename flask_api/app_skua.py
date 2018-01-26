@@ -14,7 +14,7 @@ from textblob import TextBlob
 
 # color management
 reds = cl.scales['5']['seq']['Reds']
-whites = ['rgb(245, 245, 245)'] * 6
+whites = ['rgb(255, 255, 255)'] * 6
 colors = whites + reds
 
 # LOAD MODELS
