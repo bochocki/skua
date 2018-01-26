@@ -6,12 +6,17 @@
   "manifest_version": 2,
   "browser_action": {
     "name": "Manipulate DOM",
-    "icons": ["birdhead.png"],
-    "default_icon": "icon.png"
+    "icons": ["bird.png"],
+    "default_icon": "bird.png",
+    "default_popup": "popup.html"
   },
+
   "content_scripts": [ {
     "js": [ "jquery-2.0.2.min.js", "background.js" ],
     "css": ["customStyles.css"],
-    "matches": [ "http://*/*", "https://*/*"]
-  }]
+    "matches": [ "http://twitter.com/*", "https://twitter.com/*"]
+  }],
+  "permissions": [
+    "activeTab"
+  ]
 }

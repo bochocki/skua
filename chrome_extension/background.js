@@ -1,4 +1,5 @@
 var myVar = setInterval(skua_filter, 1000);
+var sliderValue = document.getElementById("skuaSlider");
 
 // remove text in brackets
 function removeBrackets(input) {
@@ -16,7 +17,8 @@ function skua_filter() {
     for(var i=0; i <tweets.length; i++)
     {
 
-    if (tweets[i].classList.contains("skua-tweet")) {
+    if (tweets[i].classList.contains("skua-tweet"))
+    {
 
     } else {
       tweets[i].className += " skua-tweet";
@@ -25,9 +27,17 @@ function skua_filter() {
       $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
         .done(function( data ) {
           //$(matches[data.element]).parent().parent().parent().css('background', data.score);
-          $(tweets[data.element]).parents('.tweet').css('background', data.score);
+          $(tweets[data.element]).parents('.tweet').css('background', data.color);
+          $(tweets[data.element]).skuaScore = data.score;
         }, "json");
       }
+      if (tweets[i].skuaScore < sliderValue)
+      {
+        $(tweets[i]).parents('.tweet').css('background', 'black');
+      }
+
     }
   }
+
+
 }
