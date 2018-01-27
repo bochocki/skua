@@ -114,4 +114,6 @@ def predict_abuse():
     print('[TextBlob]   score: {0}'.format(s_score))
     print('[tweet]      {0}'.format(tweet))
 
-    return jsonify({'score': int(ens_score * 100), 'color': colors[int(ens_score * 10)], 'tweet': tweet, 'element': elem})
+    response = jsonify({'score': int(ens_score * 100), 'color': colors[int(ens_score * 10)], 'tweet': tweet, 'element': elem})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
