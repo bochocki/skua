@@ -1,5 +1,6 @@
 var myVar = setInterval(skua_filter, 500);
-
+var trollButton = $("#skua-troll");
+var notTrollButton = $("#skua-notTroll");
 
 var storage = chrome.storage.local;
 
@@ -10,9 +11,6 @@ function removeBrackets(input) {
 }
 
 var sliderValue;
-var element = document.createElement("div");
-element.className = "TESTER";
-
 
 function skua_filter() {
 
@@ -30,33 +28,58 @@ function skua_filter() {
 
         if (tweets[i].classList.contains("skua-tweet"))
         {
-
         } else {
-          $(tweets[i]).parent().prepend(element);
-
           tweets[i].className += " skua-tweet";
-          $(tweets[i]).data('ss')
-          var clean_text = removeBrackets(tweets[i].innerHTML);
 
-          tweets[i].appendChild(element);
+          // make a new data element to store skua score
+          $(tweets[i]).parents('.tweet').data('skua_score')
+          $(tweets[i]).parents('.tweet').data('user_score')
+
+          var clean_text = removeBrackets(tweets[i].innerHTML);
 
           $.get("https://www.skua.online/CleverBird", { tweet: clean_text, element: i })
             .done(function( result ) {
               $(tweets[result.element]).parents('.tweet').css('background', result.color);
-              $(tweets[result.element]).data('ss', result.score);
+              $(tweets[result.element]).parents('.tweet').data('skua_score', result.score);
             }, "json");
+
+            // add online learning buttons
+            $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-troll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Troll (Skua)</button></li>');
+            $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-notTroll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Not Troll (Skua)</button></li>');
+
+            // TROLL BUTTON
+            $(tweets[i]).parents('.tweet').find( ".skua-troll" ).click(function() {
+              // set background and score
+              $(this).parents('.tweet').css('background', 'rgb(222, 45, 38)');
+              $(this).parents('.tweet').data('user_score', 100);
+              // log tweet in database
+              $.get("https://www.skua.online/SkuaLogging", {
+                tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
+                troll: 'True' });
+            });
+
+            // NOT TROLL BUTTON
+            $(tweets[i]).parents('.tweet').find( ".skua-notTroll" ).click(function() {
+              // set background and score
+              $(this).parents('.tweet').css('background', 'white');
+              $(this).parents('.tweet').data('user_score', 0);
+              // log tweet in database
+              $.get("https://www.skua.online/SkuaLogging", {
+                tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
+                troll: 'False' });
+            });
           }
-
-          /*if (ss > sliderValue)
-          {
-            $(tweets[i]).parents('.tweet').css('color', 'red');
-          }*/
         }
-
       }
+
       for(var i=0; i <tweets.length; i++)
       {
-        if ($(tweets[i]).data('ss') > sliderValue) {
+        if ($(tweets[i]).parents('.tweet').data('skua_score') > sliderValue) {
+          if ($(tweets[i]).parents('.tweet').data('user_score') == 0) {
+          } else {
+            $(tweets[i]).parents('.tweet').hide();
+          }
+        } else if ($(tweets[i]).parents('.tweet').data('user_score') > sliderValue) {
           $(tweets[i]).parents('.tweet').hide();
         } else {
           $(tweets[i]).parents('.tweet').show();
