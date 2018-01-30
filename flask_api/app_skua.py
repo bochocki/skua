@@ -129,6 +129,8 @@ def log_tweet():
     cur.close()
     con.close()
 
+    return None
+
 
 @app.route('/CleverBird', methods=['GET'])
 def predict_abuse():
