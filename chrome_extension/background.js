@@ -44,8 +44,16 @@ function skua_filter() {
             }, "json");
 
             // add online learning buttons
-            $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-troll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Troll (Skua)</button></li>');
-            $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-notTroll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Not Troll (Skua)</button></li>');
+            if ($(tweets[i]).parents('.tweet').find( ".skua-troll" )[0]) {
+            } else {
+              $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-troll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Troll (Skua)</button></li>');
+            }
+
+            if ($(tweets[i]).parents('.tweet').find( ".skua-notTroll" )[0]) {
+            } else {
+              $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-notTroll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Not Troll (Skua)</button></li>');
+            }
+
 
             // TROLL BUTTON
             $(tweets[i]).parents('.tweet').find( ".skua-troll" ).click(function() {
