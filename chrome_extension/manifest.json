@@ -1,6 +1,6 @@
 {
   "name": "Skua",
-  "version": "0",
+  "version": "0.0.2",
   "description": "A smart filter for abusive tweets.",
   "background": {"page": "background.html"},
   "manifest_version": 2,
