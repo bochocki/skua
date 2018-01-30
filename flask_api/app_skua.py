@@ -108,6 +108,8 @@ def log_tweet():
 
     troll = request.args.get('troll')
     tweet = request.args.get('tweet')
+    print(troll)
+    print(tweet)
 
     psql_user = get_env_variable("POSTGRES_USERNAME")
     psql_pass = get_env_variable("POSTGRES_PASSWORD")
