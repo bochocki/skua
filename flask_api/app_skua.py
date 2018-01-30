@@ -7,7 +7,9 @@ from flask import request
 from flask_api import app
 import fasttext as ft
 import numpy as np
+import os
 import pickle
+import psycopg2
 import re
 from tensorflow.python import keras
 from textblob import TextBlob
@@ -26,6 +28,7 @@ ks_tokenizer = pickle.load( open( "./flask_api/keras_tokenizer.p", "rb" ) )
 ks_classes = pickle.load( open( "./flask_api/keras_classes.p", "rb"))
 ks_model = keras.models.load_model("./flask_api/keras_model.ks", custom_objects=None, compile=True)
 ks_model.predict(np.array(ks_tokenizer.texts_to_matrix(['hack'])))
+
 
 def preprocess(tweet):
     # define some useful regex
@@ -87,10 +90,42 @@ def sentiment_estimator(tweet):
     return (-TextBlob(tweet).sentiment.polarity + 1) / 2
 
 
+# get environmental variable from virtual environment
+def get_env_variable(name):
+    try:
+        return os.environ[name]
+    except KeyError:
+        message = "Expected environment variable '{}' not set.".format(name)
+        raise Exception(message)
+
 @app.route('/')
 @app.route('/index')
 def index():
    return "TESTING"
+
+@app.route('/SkuaLogging', methods=['GET'])
+def log_tweet():
+
+    troll = request.args.get('troll')
+    tweet = request.args.get('tweet')
+
+    psql_user = get_env_variable("POSTGRES_USERNAME")
+    psql_pass = get_env_variable("POSTGRES_PASSWORD")
+    psql_db   = 'tweets'
+
+    con = None
+    con = psycopg2.connect(database = psql_db,
+                           user = psql_user,
+                           password = psql_pass)
+    cur = con.cursor()
+
+    # add to the database
+    cur.execute("INSERT INTO labeled_tweets (original, label) VALUES (%s, %s)", (tweet, troll))
+    con.commit()
+
+    # close the connections
+    cur.close()
+    con.close()
 
 
 @app.route('/CleverBird', methods=['GET'])
