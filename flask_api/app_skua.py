@@ -129,7 +129,9 @@ def log_tweet():
     cur.close()
     con.close()
 
-    return None
+    response = jsonify({'tweet': tweet, 'troll': troll})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 @app.route('/CleverBird', methods=['GET'])
