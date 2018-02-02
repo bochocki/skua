@@ -1,6 +1,6 @@
 #!flask/bin/python
 import colorlover as cl
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 from flask import abort
 from flask import make_response
 from flask import request
@@ -98,10 +98,12 @@ def get_env_variable(name):
         message = "Expected environment variable '{}' not set.".format(name)
         raise Exception(message)
 
+
 @app.route('/')
 @app.route('/index')
 def index():
-   return "TESTING"
+   return redirect('https://chrome.google.com/webstore/detail/skua/fjdnggpcpbcfndlmoinkhnbpcjhaednl', code=302)
+
 
 @app.route('/SkuaLogging', methods=['GET'])
 def log_tweet():
