@@ -1,3 +1,9 @@
 AWS
 
 flask_api/__pycache__/
+
+skua_venv/
+
+data_utils/__pycache__/
+
+requirements\.txt
