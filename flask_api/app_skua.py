@@ -114,10 +114,6 @@ def log_tweet():
     tweetid = request.args.get('tweetid')
     troll = request.args.get('troll')
 
-    print(troll)
-    print(tweet)
-    print(userid)
-
     psql_user = get_env_variable("POSTGRES_USERNAME")
     psql_pass = get_env_variable("POSTGRES_PASSWORD")
     psql_db   = 'tweets'
@@ -129,7 +125,6 @@ def log_tweet():
     cur = con.cursor()
 
     # add to the database
-    #cur.execute("INSERT INTO labeled_tweets (original, label) VALUES (%s, %s)", (tweet, troll))
     cur.execute("INSERT INTO user_labels (tweet_text, tweet_id, tweeter_id, user_id, label) VALUES (%s, %s, %s, %s, %s)",
                 (tweet, tweetid, tweeterid, userid, troll)
                 )
@@ -150,6 +145,7 @@ def predict_abuse():
     elem  = request.args.get('element')
     tweet = preprocess(request.args.get('tweet'))
 
+    # tweet needs to contain at least a single blank space
     if tweet == '':
         tweet = ' ';
 
