@@ -14,7 +14,7 @@ var sliderValue;
 // variable to store the user id
 var userid = $('img[data-user-id]').attr('data-user-id');
 if(typeof userid == 'undefined') {
-  userid = 0;
+  userid = '0';
 }
 
 // a function to remove text between brackets
@@ -84,10 +84,13 @@ function skua_filter() {
               // set tweet background and update user_score
               $(this).parents('.tweet').css('background', 'rgb(222, 45, 38)');
               $(this).parents('.tweet').data('user_score', 100);
+
               // log tweet in database
               $.get("https://www.skua.online/SkuaLogging", {
                 tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
                 userid: userid,
+                tweeterid: $(this).parents('.tweet').attr('data-user-id'),
+                tweetid: $(this).parents('.tweet').attr('data-tweet-id'),
                 troll: 'True' });
             });
 
@@ -100,6 +103,8 @@ function skua_filter() {
               $.get("https://www.skua.online/SkuaLogging", {
                 tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
                 userid: userid,
+                tweeterid: $(this).parents('.tweet').attr('data-user-id'),
+                tweetid: $(this).parents('.tweet').attr('data-tweet-id'),
                 troll: 'False' });
             });
           }
