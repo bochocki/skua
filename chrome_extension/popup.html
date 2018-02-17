@@ -6,7 +6,7 @@
  -->
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>Skua's Popup</title>
     <style type="text/css">
       body {
         margin: 10px;
@@ -23,13 +23,6 @@
         justify-content: space-between;
       }
     </style>
-
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-    -->
   </head>
   <script src="set_slider.js"></script>
   <body>
@@ -37,12 +30,10 @@
       <span>Fewer Trolls</span>
       <div class="skuaSlider">
         <input type="range" min="30" max="100" value = "100" class="skuaSlider" id="skuaSlider">
-
       </div>
       <span>More Trolls</span>
     </div>
     <script src="set_slider.js"></script>
     <script src="popup.js"></script>
   </body>
-
 </html>

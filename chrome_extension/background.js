@@ -99,6 +99,7 @@ function skua_filter() {
               // set tweet background and update user_score
               $(this).parents('.tweet').css('background', 'white');
               $(this).parents('.tweet').data('user_score', 0);
+
               // log tweet in database
               $.get('https://www.skua.online/SkuaLogging', {
                 tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
