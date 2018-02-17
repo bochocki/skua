@@ -7,3 +7,7 @@ skua_venv/
 data_utils/__pycache__/
 
 requirements\.txt
+
+flask_api/cert\.pem
+
+flask_api/key\.pem
