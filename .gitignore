@@ -11,3 +11,5 @@ requirements\.txt
 flask_api/cert\.pem
 
 flask_api/key\.pem
+
+model_building/\.ipynb_checkpoints/
