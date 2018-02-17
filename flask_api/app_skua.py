@@ -47,8 +47,6 @@ def preprocess(tweet):
     tweet = re.sub(r'\s+', ' ', tweet) # extra whitespace
     tweet = tweet.strip() # leading/trailing whitespace
 
-    print('\nok')
-
     ## TODO: REMOVE pic.twitter.com
 
     return tweet.lower()
@@ -150,10 +148,10 @@ def log_tweet():
 def predict_abuse():
 
     elem  = request.args.get('element')
-    tweet = request.args.get('tweet')
-
-    print(tweet)
     tweet = preprocess(request.args.get('tweet'))
+
+    if tweet == '':
+        tweet = ' ';
 
     # classifiers
     ft_score, ft_label = fasttext_estimator(ft_model, tweet)
