@@ -1,13 +1,17 @@
 {
   "name": "Skua",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A smart filter for abusive tweets.",
   "background": {"page": "background.html"},
   "manifest_version": 2,
   "browser_action": {
     "name": "Manipulate DOM",
-    "icons": ["bird.png"],
-    "default_icon": "bird.png",
+    "icons": { "16": "skua16.png",
+               "19": "skua19.png",
+               "38": "skua38.png",
+               "48": "skua48.png",
+               "128": "skua128.png"},
+    "default_icon": "skua128.png",
     "default_popup": "popup.html"
   },
 
