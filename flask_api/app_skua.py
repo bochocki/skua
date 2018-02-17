@@ -150,6 +150,7 @@ def predict_abuse():
     elem  = request.args.get('element')
     tweet = request.args.get('tweet')
 
+    print(tweet)
     tweet = preprocess(request.args.get('tweet'))
 
     # classifiers
