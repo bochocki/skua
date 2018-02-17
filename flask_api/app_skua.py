@@ -108,10 +108,15 @@ def index():
 @app.route('/SkuaLogging', methods=['GET'])
 def log_tweet():
 
-    troll = request.args.get('troll')
     tweet = request.args.get('tweet')
+    userid = request.args.get('userid')
+    tweeterid = request.args.get('tweeterid')
+    tweetid = request.args.get('tweetid')
+    troll = request.args.get('troll')
+
     print(troll)
     print(tweet)
+    print(userid)
 
     psql_user = get_env_variable("POSTGRES_USERNAME")
     psql_pass = get_env_variable("POSTGRES_PASSWORD")
@@ -124,7 +129,10 @@ def log_tweet():
     cur = con.cursor()
 
     # add to the database
-    cur.execute("INSERT INTO labeled_tweets (original, label) VALUES (%s, %s)", (tweet, troll))
+    #cur.execute("INSERT INTO labeled_tweets (original, label) VALUES (%s, %s)", (tweet, troll))
+    cur.execute("INSERT INTO user_labels (tweet_text, tweet_id, tweeter_id, user_id, label) VALUES (%s, %s, %s, %s, %s)",
+                (tweet, tweetid, tweeterid, userid, troll)
+                )
     con.commit()
 
     # close the connections
