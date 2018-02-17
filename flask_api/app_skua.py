@@ -45,8 +45,9 @@ def preprocess(tweet):
     tweet = re.sub(mention_regex, ' ', tweet)  # mentions
     tweet = re.sub(r'[^\w\s]', ' ',tweet)  #punctuation
     tweet = re.sub(r'\s+', ' ', tweet) # extra whitespace
-    print('ok')
     tweet = tweet.strip() # leading/trailing whitespace
+
+    print('\nok')
 
     ## TODO: REMOVE pic.twitter.com
 
