@@ -1,4 +1,6 @@
-Chrome extension starting bundle
-================================
+Skua Chrome Extension
+=====================
 
-A basic starting point for all chrome extensions. Not all the files are needed for every extension, but the core basics are covered.
+These are the files used to build Skua's Chrome Extension. Most of the heavy
+lifting is done in the JavaScript files `background.js`, `popup.js`, and
+`set_slider.js`.
