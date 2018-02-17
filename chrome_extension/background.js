@@ -11,6 +11,12 @@ var notTrollButton = $("#skua-notTroll");
 // variable to store the slider value
 var sliderValue;
 
+// variable to store the user id
+var userid = $('img[data-user-id]').attr('data-user-id');
+if(typeof userid == 'undefined') {
+  userid = 0;
+}
+
 // a function to remove text between brackets
 function removeBrackets(input) {
   return input
@@ -81,6 +87,7 @@ function skua_filter() {
               // log tweet in database
               $.get("https://www.skua.online/SkuaLogging", {
                 tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
+                userid: userid,
                 troll: 'True' });
             });
 
@@ -92,6 +99,7 @@ function skua_filter() {
               // log tweet in database
               $.get("https://www.skua.online/SkuaLogging", {
                 tweet: removeBrackets($(this).parents('.tweet').find('.tweet-text').text()),
+                userid: userid,
                 troll: 'False' });
             });
           }
