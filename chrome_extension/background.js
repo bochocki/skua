@@ -64,13 +64,13 @@ function skua_filter() {
             // add troll button button if it doesn't already exist.
             if ($(tweets[i]).parents('.tweet').find( ".skua-troll" )[0]) {
             } else {
-              $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-troll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Troll (Skua)</button></li>');
+              $(tweets[i]).parents('.tweet').find("div.dropdown-menu ul").prepend('<li class="skua-troll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Troll (Skua)</button></li>');
             }
 
             // add notTroll button if it doesn't already exist.
             if ($(tweets[i]).parents('.tweet').find( ".skua-notTroll" )[0]) {
             } else {
-              $(tweets[i]).parents('.tweet').find("ul").prepend('<li class="skua-notTroll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Not Troll (Skua)</button></li>');
+              $(tweets[i]).parents('.tweet').find("div.dropdown-menu ul").prepend('<li class="skua-notTroll" role="presentation"> <button type="button" class="dropdown-link" role="menuitem">Not Troll (Skua)</button></li>');
             }
 
             // click action for troll button
@@ -118,7 +118,7 @@ function skua_filter() {
             $(tweets[i]).parents('.tweet').hide();
 
           }
-          
+
         } else if ($(tweets[i]).parents('.tweet').data('user_score') > sliderValue) {
 
           // user has labeled tweet as troll. Hide if slider value is less than 100.
